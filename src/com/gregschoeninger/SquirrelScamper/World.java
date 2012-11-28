@@ -24,7 +24,7 @@ public class World {
 	public int score;
 	public int state;
 	
-	public World(){
+	public World() {
 		this.squirrel = new Squirrel(5, 2);
 		this.acorns = new ArrayList<Acorn>();
 		this.birds = new ArrayList<Bird>();
@@ -36,10 +36,10 @@ public class World {
 		this.state = WORLD_STATE_READY;
 	}
 	
-	private void generateWorld(){
+	private void generateWorld() {
 		float y = 10;
 		
-		while(y < WORLD_HEIGHT){
+		while (y < WORLD_HEIGHT) {
 			if (rand.nextFloat() < 0.1f) {
 				float x = rand.nextFloat() * (WORLD_WIDTH - Acorn.WIDTH) + Acorn.WIDTH / 2;
 				Acorn acorn = new Acorn(x, y);
@@ -62,8 +62,8 @@ public class World {
 	}
 	
 
-	public void update(float deltaTime, float accelX){
-		if(state == WORLD_STATE_RUNNING){
+	public void update(float deltaTime, float accelX) {
+		if (state == WORLD_STATE_RUNNING) {
 			updateSquirrel(deltaTime, accelX);
 			updateBirds(deltaTime);
 			updateFiringAcorns(deltaTime);
@@ -72,22 +72,22 @@ public class World {
 		}
 	}
 	
-	private void updateSquirrel(float deltaTime, float accelX){
+	private void updateSquirrel(float deltaTime, float accelX) {
 		squirrel.velocity.x = -accelX * squirrel.VELOCITY_X;
 		squirrel.update(deltaTime);
 	}
 	
-	private void updateBirds(float deltaTime){
-		for(int i = 0; i < birds.size(); i++){
+	private void updateBirds(float deltaTime) {
+		for (int i = 0; i < birds.size(); i++) {
 			Bird b = birds.get(i);
 			b.update(deltaTime);
 		}
 	}
 	
-	private void updateFiringAcorns(float deltaTime){
-		for(int i = 0; i < squirrel.firingAcorns.size(); i++){
+	private void updateFiringAcorns(float deltaTime) {
+		for (int i = 0; i < squirrel.firingAcorns.size(); i++) {
 			Acorn a = squirrel.firingAcorns.get(i);
-			if(a.position.y < squirrel.position.y + 15){
+			if (a.position.y < squirrel.position.y + 15) {
 				a.update(deltaTime);
 			} else {
 				squirrel.firingAcorns.remove(i);
@@ -96,14 +96,14 @@ public class World {
 		}
 	}
 	
-	private void checkCollisions(){
+	private void checkCollisions() {
 		checkSquirrelAcornCollisions();
 		checkBirdSquirrelCollisions();
 		checkSquirrelHoleCollisions();
 		checkFiringAcornBirdCollisions();
 	}
 	
-	private void checkSquirrelAcornCollisions(){
+	private void checkSquirrelAcornCollisions() {
 		for (int i = 0; i < acorns.size(); i++) {
 			Acorn a = acorns.get(i);
 			if (OverlapTester.overlapRectangles(squirrel.bounds, a.bounds)) {
@@ -136,7 +136,7 @@ public class World {
 		}
 	}
 	
-	private void checkFiringAcornBirdCollisions(){
+	private void checkFiringAcornBirdCollisions() {
 		for (int i = 0; i < squirrel.firingAcorns.size(); i++) {
 			Acorn a = squirrel.firingAcorns.get(i);
 			for (int j = 0; j < birds.size(); j++) {
@@ -151,13 +151,13 @@ public class World {
 		}
 	}
 	
-	private void checkRestart(){
+	private void checkRestart() {
 		if(squirrel.position.y > WORLD_HEIGHT){
 			restart(0);
 		}
 	}
 	
-	private void restart(int level){
+	private void restart(int level) {
 		state = WORLD_STATE_READY;
 		score = 0;
 		squirrel.position.y = 0;

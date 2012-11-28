@@ -21,13 +21,12 @@ public class Assets {
 	
 	public static Animation bird;
 	
-	
 	public static TextureRegion readyText;
 	public static TextureRegion pauseButton;
 	public static TextureRegion fireButton;
 	public static TextureRegion speedButton;
 	
-	public static void load(GLGame game){
+	public static void load(GLGame game) {
 		mainMenuTexture = new Texture(game, "MainMenu.png"); 
 		backgroundTexture = new Texture(game, "FullBackground.png"); 
 		foregroundTexture = new Texture(game, "ForegroundSprite.png");
@@ -55,7 +54,7 @@ public class Assets {
 		
 	}
 	
-	public static void reload(){
+	public static void reload() {
 		mainMenuTexture.reload();
 		backgroundTexture.reload();
 		foregroundTexture.reload();

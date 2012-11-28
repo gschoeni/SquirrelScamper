@@ -54,7 +54,7 @@ public class GameScreen extends GLScreen {
 		//our game be interrupted by the garbage collector and not run as smooth (see page 477)
 		if(deltaTime > 0.1f) 
 			deltaTime = 0.1f;
-		switch(world.state) { 
+		switch (world.state) { 
 			case World.WORLD_STATE_READY:
 				updateReady();
 				break;
@@ -64,27 +64,27 @@ public class GameScreen extends GLScreen {
 		}
 	}
 	
-	private void updateReady(){
+	private void updateReady() {
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 		int len = touchEvents.size();
-		for(int i = 0; i < len; i++){
+		for(int i = 0; i < len; i++) {
 			TouchEvent event = touchEvents.get(i);
 			if(event.type != TouchEvent.TOUCH_UP)
 				continue;
 			touchPoint.set(event.x, event.y);
 			guiCam.touchToWorld(touchPoint);
 			
-			if(OverlapTester.pointInRectangle(readyBounds, touchPoint)){
+			if (OverlapTester.pointInRectangle(readyBounds, touchPoint)) {
 				world.state = World.WORLD_STATE_RUNNING;
 				return;
 			}
 		}
 	}
 	
-	private void updateRunning(float deltaTime){
+	private void updateRunning(float deltaTime) {
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 		int len = touchEvents.size();
-		for(int i = 0; i < len; i++){
+		for(int i = 0; i < len; i++) {
 			TouchEvent event = touchEvents.get(i);
 			
 			//only recognize TOUCH UP and TOUCH DOWN events
@@ -94,20 +94,18 @@ public class GameScreen extends GLScreen {
 			touchPoint.set(event.x, event.y);
 			guiCam.touchToWorld(touchPoint);
 			
-			if(OverlapTester.pointInRectangle(pauseBounds, touchPoint)){
+			if (OverlapTester.pointInRectangle(pauseBounds, touchPoint)) {
 				world.state = World.WORLD_STATE_READY;
 				return;
 			}
 			
 			
-			if(OverlapTester.pointInRectangle(fireBounds, touchPoint)){
+			if (OverlapTester.pointInRectangle(fireBounds, touchPoint)) {
 				world.squirrel.fireAcorn();
 				return;
 			}
 			
-			
-			
-			if(OverlapTester.pointInRectangle(speedUpBounds, touchPoint)){
+			if (OverlapTester.pointInRectangle(speedUpBounds, touchPoint)) {
 				world.squirrel.speedUp();
 				return;
 			}
@@ -130,7 +128,7 @@ public class GameScreen extends GLScreen {
 		
 		guiCam.setViewportAndMatrices();
 		
-		switch(world.state){
+		switch (world.state) {
 			case World.WORLD_STATE_READY:
 				presentReady();
 				break;
@@ -139,16 +137,15 @@ public class GameScreen extends GLScreen {
 				break;
 		}
 		
-		
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);
 	}
 
-	private void presentReady(){
+	private void presentReady() {
 		batcher.drawSprite(160, 240, 160, 32, Assets.readyText);
 	}
 	
-	private void presentRunning(){
+	private void presentRunning() {
 		//Draw the pause button
 		batcher.drawSprite(280, 440, 50, 50, Assets.pauseButton);
 		
@@ -173,7 +170,7 @@ public class GameScreen extends GLScreen {
 //		numberRenderer.drawNumber(batcher, lastScore, 20, 20);
 		
 		
-		if(world.squirrel.acorns.size() != numAcorns.intValue){
+		if (world.squirrel.acorns.size() != numAcorns.intValue) {
 			numAcorns = new BigInt(world.squirrel.acorns.size());
 		}
 		numberRenderer.drawNumber(batcher, numAcorns, 20, 440);

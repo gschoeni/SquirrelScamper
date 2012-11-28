@@ -16,7 +16,7 @@ public class WorldRenderer {
 	Camera2D cam;
 	SpriteBatcher batcher;
 	
-	public WorldRenderer(GLGraphics g, SpriteBatcher b, World w){
+	public WorldRenderer(GLGraphics g, SpriteBatcher b, World w) {
 		this.glGraphics = g;
 		this.batcher = b;
 		this.world = w;
@@ -24,7 +24,7 @@ public class WorldRenderer {
 		this.background = new Background(Assets.backgroundRegion1, Assets.backgroundRegion2);
 	}
 	
-	public void render(){
+	public void render() {
 		//climb with the squirrel
 		if(world.squirrel.position.y + 5.5f > cam.position.y)
 			cam.position.y = world.squirrel.position.y + 5.5f;
@@ -38,10 +38,10 @@ public class WorldRenderer {
 		renderForeground();
 	}
 	
-	private void renderBackground(){
+	private void renderBackground() {
 		batcher.beginBatch(Assets.backgroundTexture);
-		if(world.state == World.WORLD_STATE_RUNNING){
-			if(!world.squirrel.speeding){
+		if(world.state == World.WORLD_STATE_RUNNING) {
+			if(!world.squirrel.speeding) {
 				background.update(world.squirrel.VELOCITY_Y);
 			} else {
 				background.update(world.squirrel.SPEEDING_VELOCITY_Y);
@@ -54,7 +54,7 @@ public class WorldRenderer {
 		batcher.endBatch();
 	}
 	
-	private void renderForeground(){
+	private void renderForeground() {
 		GL10 gl = glGraphics.getGL();
 		gl.glEnable(GL10.GL_BLEND);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
@@ -69,21 +69,21 @@ public class WorldRenderer {
 		gl.glDisable(GL10.GL_BLEND);
 	}
 	
-	private void renderSquirrel(){
+	private void renderSquirrel() {
 		//if(world.squirrel.velocity.x < 0)
 			batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelLeft);
 		//else 
 			//batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelRight);
 	}
 	
-	private void renderAcorns(){
+	private void renderAcorns() {
 		for(int i = 0; i < world.acorns.size(); i++){
 			Acorn a = world.acorns.get(i);
 			batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
 		}
 		
 		//render any acorns that are being fired
-		for(int i = 0; i < world.squirrel.firingAcorns.size(); i++){
+		for (int i = 0; i < world.squirrel.firingAcorns.size(); i++) {
 			Acorn a = world.squirrel.firingAcorns.get(i);
 			if(a.firing){
 				batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
@@ -91,23 +91,20 @@ public class WorldRenderer {
 		}
 	}
 
-	private void renderHoles(){
-		for(int i = 0; i < world.holes.size(); i++){
+	private void renderHoles() {
+		for (int i = 0; i < world.holes.size(); i++) {
 			Hole h = world.holes.get(i);
 			batcher.drawSprite(h.position.x, h.position.y, Hole.WIDTH, Hole.HEIGHT, Assets.hole);
 		}
 	}
 	
 	
-	private void renderBirds(){
-		for(int i = 0; i < world.birds.size(); i++){
+	private void renderBirds() {
+		for (int i = 0; i < world.birds.size(); i++) {
 			Bird b = world.birds.get(i);
 			float side = b.velocity.x < 0 ? 1 : -1;
 			batcher.drawSprite(b.position.x, b.position.y, Bird.WIDTH * side, Bird.HEIGHT, Assets.bird.getKeyFrame(b.stateTime, Animation.ANIMATION_LOOPING));
 		}
 	}
 	
-	
-	
-
 }

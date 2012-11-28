@@ -15,9 +15,9 @@ public class SquirrelScamper extends GLGame {
 	}
 	
 	@Override
-	public void onSurfaceCreated(GL10 gl, EGLConfig config){
+	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
-		if(firstTimeCreate){
+		if (firstTimeCreate) {
 			Assets.load(this);
 			firstTimeCreate = false;
 		} else {

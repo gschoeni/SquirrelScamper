@@ -9,19 +9,19 @@ public class Acorn extends DynamicGameObject {
 	public static final float FIRE_VELOCITY = 0.03f;
 	public boolean firing = false;
 	
-	public Acorn(float x, float y){
+	public Acorn(float x, float y) {
 		super(x, y, WIDTH, HEIGHT);
 	}
 	
-	public void update(float deltaTime){
-		if(firing){
+	public void update(float deltaTime) {
+		if (firing) {
 			velocity.y += FIRE_VELOCITY;
 			position.add(velocity.x, velocity.y); 
 			bounds.lowerLeft.set(position).sub(WIDTH / 2, HEIGHT / 2);
 		}
 	}
 	
-	public void fire(float x, float y){
+	public void fire(float x, float y) {
 		firing = true;
 		
 		this.position.x = x;

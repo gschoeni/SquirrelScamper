@@ -10,19 +10,20 @@ public class Bird extends DynamicGameObject {
 	
 	float stateTime = 0;
 	
-	public Bird(float x, float y){
+	public Bird(float x, float y) {
 		super(x, y, WIDTH, HEIGHT);
 		velocity.set(VELOCITY, 0);
 	}
 	
-	public void update(float deltaTime){
+	public void update(float deltaTime) {
 		position.add(velocity.x * deltaTime, velocity.y * deltaTime); 
 		bounds.lowerLeft.set(position).sub(WIDTH / 2, HEIGHT / 2);
-		if(position.x < WIDTH / 2 ) { 
+		
+		if (position.x < WIDTH / 2 ) { 
 			position.x = WIDTH / 2;
 			velocity.x = VELOCITY; 
 		}
-		if(position.x > World.WORLD_WIDTH - WIDTH / 2) { 
+		if (position.x > World.WORLD_WIDTH - WIDTH / 2) { 
 			position.x = World.WORLD_WIDTH - WIDTH / 2;
 			velocity.x = -VELOCITY; 
 		}

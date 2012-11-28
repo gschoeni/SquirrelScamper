@@ -21,7 +21,7 @@ public class MainMenuScreen extends GLScreen {
 	Rectangle playBounds;
 	Vector2 touchPoint;
 	
-	public MainMenuScreen(Game game){
+	public MainMenuScreen(Game game) {
 		super(game);
 		guiCam = new Camera2D(glGraphics, 320, 480);
 		batcher = new SpriteBatcher(glGraphics, 100);
@@ -30,19 +30,19 @@ public class MainMenuScreen extends GLScreen {
 	}
 	
 	@Override
-	public void update(float deltaTime){
+	public void update(float deltaTime) {
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 		game.getInput().getKeyEvents();
 		
-		for(int i = 0; i < touchEvents.size(); i++){
+		for (int i = 0; i < touchEvents.size(); i++) {
 			TouchEvent event = touchEvents.get(i);
-			if(event.type != TouchEvent.TOUCH_UP)
+			if (event.type != TouchEvent.TOUCH_UP)
 				continue;
 			
 			touchPoint.set(event.x, event.y);
 			guiCam.touchToWorld(touchPoint);
 			
-			if(OverlapTester.pointInRectangle(playBounds, touchPoint)){
+			if (OverlapTester.pointInRectangle(playBounds, touchPoint)) {
 				//Play Click Sound
 				game.setScreen(new GameScreen(game));
 				return;
